@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css'
-
+import { toast, ToastContainer } from 'react-toastify';
+  import "react-toastify/dist/ReactToastify.css";
 function App() {
 
 
@@ -25,8 +26,8 @@ function App() {
       .then(data => {
         console.log(data)
         if(data.insertedId){
-          alert('user added')
-          form.reset();
+          toast('User added Succesfully')
+          form.reset()
         }
       })
 
@@ -42,6 +43,7 @@ function App() {
         <br />
         <input type="submit" value="Add User" />
       </form>
+      <ToastContainer autoClose={1000}/>
     </>
   )
 }

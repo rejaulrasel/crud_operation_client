@@ -14,9 +14,9 @@ const router = createBrowserRouter([
     element: <App/>,
   },
   {
-    path: '/users',
+    path: "/users",
     element: <Users></Users>,
-    loader: () => fetch('http://localhost:4000/users',[])
+    loader: () => fetch('http://localhost:4000/users')
   }
 ]);
 
