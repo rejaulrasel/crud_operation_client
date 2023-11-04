@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
   import "react-toastify/dist/ReactToastify.css";
 
@@ -31,7 +31,9 @@ const Users = () => {
 
             <div>
                 {
-                    users.map(user => <p key={user._id}>{user.name} : {user.address} : <button onClick={() => handleDelete(user._id)}>DELETE</button></p>)
+                    users.map(user => <p key={user._id}>{user.name} : {user.address} : <button onClick={() => handleDelete(user._id)}>DELETE</button>
+                    <Link to={`/updateProfile/${user._id}`}>UPDATE</Link>
+                    </p>)
                 }
             </div>
             <ToastContainer autoClose={1000} />
