@@ -3,13 +3,6 @@ import './App.css'
 
 function App() {
 
-  const [users, setUsers] = useState([]);
-
-  useEffect( () => {
-    fetch('http://localhost:4000/users')
-    .then(res => res.json())
-    .then(data => setUsers(data))
-  },[users])
 
 
   const handleAddUser = event => {
@@ -49,7 +42,6 @@ function App() {
         <br />
         <input type="submit" value="Add User" />
       </form>
-      <h1>{users.length}</h1>
     </>
   )
 }
