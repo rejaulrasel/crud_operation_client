@@ -1,19 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLoaderData } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
 const UpdateProfile = () => {
-    const { userId } = useParams()
-    const [user, setUser] = useState([])
-    const navigate = useNavigate()  
-    useEffect(() => {
-        fetch(`http://localhost:4000/users/${userId}`)
-            .then(res => res.json())
-            .then(data => {
-                setUser(data)
-            })
-    }, [user])
+    const loadedUser = useLoaderData();
+    const [user, setUser] = useState(loadedUser);
+    const navigate = useNavigate();
 
     const handleUpdate = event => {
         event.preventDefault()
@@ -22,7 +15,7 @@ const UpdateProfile = () => {
         const address = form.address.value;
         const updatedData = { name, address }
         console.log(updatedData)
-        fetch(`http://localhost:4000/updateProfile/${userId}`,{
+        fetch(`http://localhost:4000/updateProfile/${user._id}`,{
             method: 'PUT',
             headers: {
                 'content-type' : 'application/json',
@@ -33,7 +26,9 @@ const UpdateProfile = () => {
         )
         .then(res => res.json())
         .then(data => {
-            if(data.matchedCount > 0){
+            console.log(data)
+            setUser(data.user)
+            if(data.result.matchedCount > 0){
                 toast('User Updated Successfully');
             }
            
@@ -41,15 +36,17 @@ const UpdateProfile = () => {
 
 
 
-       navigate('/users');
+       setTimeout( () => {
+        navigate('/users')
+       },1000)
     }
     return (
         <div>
-            <h1>UPDATE PROFILE</h1>
+            <h1>UPDATE PROFILE of {user?.name}</h1>
             <form onSubmit={handleUpdate}>
-                <input defaultValue={user.name} type="text" name="name" id="" />
+                <input defaultValue={user?.name} type="text" name="name" id="" />
                 <br />
-                <input defaultValue={user.address} type="text" name="address" id="" />
+                <input defaultValue={user?.address} type="text" name="address" id="" />
                 <br />
                 <input type="submit" value="Update Profile" />
             </form>
