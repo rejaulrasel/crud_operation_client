@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Users from './components/Users.jsx';
 import UpdateProfile from './components/UpdateProfile.jsx'
+import SingleUser from './components/SingleUser.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,11 @@ const router = createBrowserRouter([
     path: "/updateProfile/:userId",
     element: <UpdateProfile></UpdateProfile>,
     loader: ({params}) => fetch(`http://localhost:4000/users/${params.userId}`)
+  },
+  {
+    path: '/users/singleUser/:id',
+    element: <SingleUser></SingleUser>,
+    loader: ({params}) => fetch(`http://localhost:4000/users/singleUser/${params.id}`)
   }
 ]);
 
